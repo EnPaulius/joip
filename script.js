@@ -15,20 +15,40 @@ function renderAlbumCards() {
   albums.forEach((album, index) => {
     const card = document.createElement('div');
     card.className = 'album-card';
-    let thumbHtml = '';
-if (album.thumbnail && album.thumbnail.endsWith('.mp4')) {
-  thumbHtml = `<video src="${album.thumbnail}" autoplay loop muted playsinline style="width:100%;height:auto;display:block;"></video>`;
-} else {
-  thumbHtml = `<img src="${album.thumbnail || album.items[0].src}" alt="Album thumbnail">`;
-}
-card.innerHTML = `
-  ${thumbHtml}
-  <h3>${album.title}</h3>
-`;
+
+    // Create thumbnail container div
+    const thumbContainer = document.createElement('div');
+    thumbContainer.className = 'thumbnail-container';
+
+    // Create thumbnail element (video or image)
+    let thumbEl;
+    if (album.thumbnail && album.thumbnail.endsWith('.mp4')) {
+      thumbEl = document.createElement('video');
+      thumbEl.src = album.thumbnail;
+      thumbEl.autoplay = true;
+      thumbEl.loop = true;
+      thumbEl.muted = true;
+      thumbEl.playsInline = true;
+      thumbEl.controls = false;
+    } else {
+      thumbEl = document.createElement('img');
+      thumbEl.src = album.thumbnail || (album.items.length > 0 ? album.items[0].src : '');
+      thumbEl.alt = 'Album thumbnail';
+    }
+
+    thumbContainer.appendChild(thumbEl);
+    card.appendChild(thumbContainer);
+
+    // Create and append title element
+    const title = document.createElement('h3');
+    title.textContent = album.title;
+    card.appendChild(title);
+
     card.onclick = () => openAlbum(index);
     list.appendChild(card);
   });
 }
+
 
 function openAlbum(index) {
   currentAlbum = albums[index];
