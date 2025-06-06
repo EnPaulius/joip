@@ -14,7 +14,7 @@ button { padding: 0.5rem 1rem; cursor: pointer; }
   gap: 1rem; padding: 1rem;
 }
 .album-card {
-  background: #222; border-radius: 8px; overflow: hidden; cursor: pointer;
+  display: inline-block; background: #222; border-radius: 8px; overflow: hidden; cursor: pointer;
 }
 .album-card img {width: 100%; max-width: 288px; display: block; }
 .album-card h3 { margin: 0.5rem; word-break: break-word; max-width: 288px; white-space: normal; overflow-wrap: anywhere; }
