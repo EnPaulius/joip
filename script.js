@@ -61,6 +61,12 @@ function goBack() {
 }
 
 function toggleTheme() {
-  document.body.classList.toggle('dark');
-  document.body.classList.toggle('light');
+  const body = document.body;
+  if (body.classList.contains('dark')) {
+    body.classList.remove('dark');
+    body.classList.add('light');
+  } else {
+    body.classList.remove('light');
+    body.classList.add('dark');
+  }
 }
