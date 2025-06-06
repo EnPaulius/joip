@@ -1,24 +1,31 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JOIPS backup Album</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Joips album (backup)</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="dark">
-  <header>
-    <h1>📸 JOIPS backup album</h1>
-    <button onclick="toggleTheme()">🌓</button>
-  </header>
-  <main id="album-list"></main>
-  <section id="album-view" class="hidden">
-    <button onclick="goBack()">← Back to albums</button>
-    <h2 id="album-title"></h2>
-    <audio id="narration" controls></audio>
-    <div id="media-container"></div>
-  </section>
+<body>
+  <div class="container">
+    <header>
+      <h1>Joips album (backup)</h1>
+      <label class="theme-switch" for="themeToggle" aria-label="Toggle dark/light theme">
+        <input type="checkbox" id="themeToggle" />
+        <span>🌙/☀️</span>
+      </label>
+    </header>
+
+    <label for="albumSelector">Select Album:</label>
+    <select id="albumSelector" aria-label="Album selector">
+      <option value="">-- Choose an Album --</option>
+    </select>
+
+    <audio id="narrationPlayer" controls aria-label="Narration audio player"></audio>
+
+    <div id="photoGallery" class="gallery" role="region" aria-live="polite" aria-label="Photo and video gallery"></div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
