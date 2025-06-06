@@ -24,3 +24,14 @@ button { padding: 0.5rem 1rem; cursor: pointer; }
 }
 .caption { text-align: center; font-style: italic; }
 .hidden { display: none; }
+
+.album-card video {
+  max-width: 288px;      /* match your image thumbnail max width */
+  max-height: 100%;     /* optional: maintain 16:9 aspect ratio height */
+  width: 100%;           /* make video responsive within max-width */
+  height: auto;          /* maintain aspect ratio */
+  display: block;
+  margin: 0 auto;        /* center video */
+  object-fit: cover;     /* crop or fill video nicely */
+  border-radius: 6px;    /* optional: match image styling */
+}
