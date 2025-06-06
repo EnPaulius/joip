@@ -15,10 +15,16 @@ function renderAlbumCards() {
   albums.forEach((album, index) => {
     const card = document.createElement('div');
     card.className = 'album-card';
-    card.innerHTML = `
-      <img src="${album.thumbnail || album.items[0].src}" alt="Album thumbnail">
-      <h3>${album.title}</h3>
-    `;
+    let thumbHtml = '';
+if (album.thumbnail && album.thumbnail.endsWith('.mp4')) {
+  thumbHtml = `<video src="${album.thumbnail}" autoplay loop muted playsinline style="width:100%;height:auto;display:block;"></video>`;
+} else {
+  thumbHtml = `<img src="${album.thumbnail || album.items[0].src}" alt="Album thumbnail">`;
+}
+card.innerHTML = `
+  ${thumbHtml}
+  <h3>${album.title}</h3>
+`;
     card.onclick = () => openAlbum(index);
     list.appendChild(card);
   });
