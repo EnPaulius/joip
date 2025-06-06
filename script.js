@@ -2,7 +2,7 @@
 let albums = [];
 let currentAlbum = null;
 
-fetch('albums.json')
+fetch('./albums.json')
   .then(res => res.json())
   .then(data => {
     albums = data;
