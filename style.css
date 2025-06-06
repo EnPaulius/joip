@@ -130,8 +130,8 @@ section#album-view.visible {
 .caption {
   max-width: 950px;
   width: 100%;
-  text-align: center;
-  font-style: italic;
+  text-align: center; 
+  font-style: normal; /*italic*/
   color: #ccc;
   margin-bottom: 1rem;
 }
