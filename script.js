@@ -91,7 +91,8 @@ function openAlbum(index) {
     if (item.caption) {
       const caption = document.createElement('div');
       caption.className = 'caption';
-      caption.textContent = item.caption;
+     // caption.textContent = item.caption;
+      caption.innerHTML = item.caption.replace(/\n/g, '<br>');
       container.appendChild(caption);
     }
   });
