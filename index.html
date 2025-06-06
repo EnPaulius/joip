@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JOIPS backup Album</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dark">
+  <header>
+    <h1>📸 JOIPS backup album</h1>
+    <button onclick="toggleTheme()">🌓</button>
+  </header>
+  <main id="album-list"></main>
+  <section id="album-view" class="hidden">
+    <button onclick="goBack()">← Back to albums</button>
+    <h2 id="album-title"></h2>
+    <audio id="narration" controls></audio>
+    <div id="media-container"></div>
+  </section>
+  <script src="script.js"></script>
+</body>
+</html>
