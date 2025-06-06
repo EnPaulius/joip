@@ -1,52 +1,56 @@
+/* General body and layout */
 body {
   margin: 0;
   font-family: sans-serif;
-  transition: background 0.3s, color 0.3s;
-}
-body.dark {
   background: #111;
   color: #eee;
-}
-body.light {
-  background: #f8f8f8;
-  color: #111;
-}
-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+header {
   padding: 1rem;
-  background: #333;
-  color: white;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: #222;
 }
-button {
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-}
-#album-list {
+
+/* Album list grid */
+main#album-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(288px, 1fr));
   gap: 1rem;
   padding: 1rem;
+  flex-grow: 1;
+  background: #111;
 }
+
+/* Album card */
 .album-card {
   width: 288px;
   height: 288px;
-  box-sizing: border-box;
+  background: #222;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: #222;
-  border-radius: 8px;
-  margin: 0.5rem auto;
   cursor: pointer;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
+
+/* Thumbnail container inside album card */
 .album-card .thumbnail-container {
   flex: 1 1 70%;
   overflow: hidden;
   width: 100%;
   position: relative;
 }
+
+/* Thumbnail images and videos */
 .album-card .thumbnail-container img,
 .album-card .thumbnail-container video {
   width: 100%;
@@ -55,38 +59,96 @@ button {
   display: block;
   border-radius: 8px 8px 0 0;
 }
+
+/* Album title */
 .album-card h3 {
   flex: 0 1 30%;
   margin: 0.5rem;
   text-align: center;
-  overflow-wrap: break-word;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-wrap: break-word;
 }
-#album-view {
+
+/* Album view section */
+section#album-view {
+  display: none;
+  flex-direction: column;
+  align-items: center;
   padding: 1rem;
+  background: #111;
+  min-height: 100vh;
 }
+
+/* Show album view when visible */
+section#album-view.visible {
+  display: flex;
+}
+
+/* Album title in album view */
+#album-title {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  max-width: 900px;
+  word-break: break-word;
+}
+
+/* Narration audio player */
+#narration {
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+/* Media container for album images/videos */
+#media-container {
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Images and videos inside media container */
 #media-container img,
 #media-container video {
-  max-width: 900px;
-  display: block;
-  margin: 1rem auto;
-}
-.caption {
-  text-align: center;
-  font-style: italic;
-}
-.hidden {
-  display: none;
-}
-.album-card video {
   max-width: 288px;
-  max-height: 162px; /* optional fixed height for 16:9 ratio */
+  max-height: 288px;
   width: 100%;
   height: auto;
-  display: block;
-  margin: 0 auto;
   object-fit: cover;
   border-radius: 8px;
+  display: block;
+}
+
+/* Caption below media */
+.caption {
+  width: 288px;
+  text-align: center;
+  font-style: italic;
+  color: #ccc;
+  margin-bottom: 1rem;
+}
+
+/* Back to albums buttons */
+button.back-btn {
+  background: #333;
+  color: #eee;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+  border-radius: 6px;
+  cursor: pointer;
+  max-width: 900px;
+  width: 100%;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+button.back-btn:hover {
+  background: #555;
 }
