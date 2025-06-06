@@ -2,29 +2,150 @@
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Joips album (backup)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Joips Album (backup)</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Minimal CSS for centering and layout */
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #111;
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      background: #222;
+    }
+    main#album-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(288px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+      flex-grow: 1;
+      background: #111;
+    }
+    .album-card {
+      width: 288px;
+      height: 288px;
+      background: #222;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      cursor: pointer;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+    .album-card .thumbnail-container {
+      flex: 1 1 70%;
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+    }
+    .album-card .thumbnail-container img,
+    .album-card .thumbnail-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 8px 8px 0 0;
+    }
+    .album-card h3 {
+      flex: 0 1 30%;
+      margin: 0.5rem;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-wrap: break-word;
+    }
+
+    /* Album view styles */
+    section#album-view {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      background: #111;
+      min-height: 100vh;
+    }
+    section#album-view.visible {
+      display: flex;
+    }
+    #album-title {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      text-align: center;
+      max-width: 900px;
+      word-break: break-word;
+    }
+    #narration {
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    #media-container {
+      max-width: 900px;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    #media-container img,
+    #media-container video {
+      max-width: 288px;
+      max-height: 288px;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+    }
+    .caption {
+      width: 288px;
+      text-align: center;
+      font-style: italic;
+      color: #ccc;
+      margin-bottom: 1rem;
+    }
+    button.back-btn {
+      background: #333;
+      color: #eee;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin: 1rem 0;
+      border-radius: 6px;
+      cursor: pointer;
+      max-width: 900px;
+      width: 100%;
+      font-size: 1rem;
+    }
+    button.back-btn:hover {
+      background: #555;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Joips album (backup)</h1>
-      <label class="theme-switch" for="themeToggle" aria-label="Toggle dark/light theme">
-        <input type="checkbox" id="themeToggle" />
-        <span>🌙/☀️</span>
-      </label>
-    </header>
+  <header>📸 Joips Album (backup)</header>
 
-    <label for="albumSelector">Select Album:</label>
-    <select id="albumSelector" aria-label="Album selector">
-      <option value="">-- Choose an Album --</option>
-    </select>
+  <main id="album-list"></main>
 
-    <audio id="narrationPlayer" controls aria-label="Narration audio player"></audio>
-
-    <div id="photoGallery" class="gallery" role="region" aria-live="polite" aria-label="Photo and video gallery"></div>
-  </div>
+  <section id="album-view" aria-label="Album view">
+    <button class="back-btn" id="backTop">← Back to albums</button>
+    <h2 id="album-title"></h2>
+    <audio id="narration" controls></audio>
+    <div id="media-container"></div>
+    <button class="back-btn" id="backBottom">← Back to albums</button>
+  </section>
 
   <script src="script.js"></script>
 </body>
