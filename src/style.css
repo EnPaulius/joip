@@ -23,7 +23,7 @@ header {
   background: var(--card-bg);
   border-bottom: 1px solid #333;
   z-index: 10;
-  position: sticky; /* Only the Search bar sticks */
+  position: sticky;
   top: 0;
 }
 
@@ -128,9 +128,9 @@ section#album-view.visible { display: flex; }
 
 #album-title { font-size: 1.5rem; margin: 1rem 0; color: var(--accent-color); }
 
-/* AUDIO PLAYER - STATIC (Does NOT scroll with page) */
+/* AUDIO PLAYER */
 .audio-wrapper {
-    position: static; /* Normal flow */
+    position: static;
     width: 100%; max-width: 900px;
     padding: 10px 0;
     margin-bottom: 20px;
@@ -152,10 +152,8 @@ section#album-view.visible { display: flex; }
   width: 100%; height: auto;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  cursor: zoom-in;
+  cursor: default; /* No longer zoom-in */
 }
-
-#media-container video { cursor: default; }
 
 .caption {
   max-width: 800px; width: 90%;
@@ -176,37 +174,7 @@ section#album-view.visible { display: flex; }
 .back-btn:hover { background: var(--accent-color); color: #000; }
 .bottom-btn { margin-top: 3rem; margin-bottom: 2rem; width: 100%; max-width: 900px; }
 
-/* --- 4. Lightbox --- */
-.lightbox {
-    display: none;
-    position: fixed; z-index: 2000;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.95);
-    align-items: center; justify-content: center;
-    backdrop-filter: blur(5px);
-}
-.lightbox.active { display: flex; }
-
-.lightbox img {
-    max-width: 95%; max-height: 95%;
-    border-radius: 4px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.8);
-    animation: zoomIn 0.2s ease;
-}
-@keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-.close-lightbox {
-    position: absolute; top: 20px; right: 30px;
-    color: #fff; font-size: 40px; font-weight: bold;
-    cursor: pointer; user-select: none;
-    background: rgba(0,0,0,0.5);
-    width: 50px; height: 50px;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-}
-
-/* --- 5. Scroll To Top Button (Small & Transparent) --- */
+/* --- 5. Scroll To Top Button (Updated) --- */
 #scrollTopBtn {
     display: none;
     position: fixed;
@@ -214,16 +182,16 @@ section#album-view.visible { display: flex; }
     z-index: 99;
     border: none; outline: none;
     
-    /* Small & Transparent */
-    width: 35px; height: 35px;
-    font-size: 18px;
+    /* Smaller & Transparent */
+    width: 30px; height: 30px; 
+    font-size: 16px;
     background-color: var(--accent-color);
     color: #000;
-    opacity: 0.5; /* Transparent */
+    opacity: 0.3; /* Very transparent */
     
     cursor: pointer;
     border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     transition: opacity 0.3s, transform 0.3s;
 }
 
