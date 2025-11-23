@@ -8,7 +8,7 @@
 </head>
 <body>
   
-  <!-- 1. Header & Search -->
+  <!-- Header & Search -->
   <header>
     <div class="title">📸 Joips Albums 💋</div>
     <div class="search-wrapper">
@@ -29,8 +29,9 @@
         <h2 id="album-title"></h2>
     </div>
     
+    <!-- Audio Player (Static - Will NOT scroll with page) -->
     <div class="audio-wrapper">
-        <audio id="narration" controls class="sticky-audio"></audio>
+        <audio id="narration" controls></audio>
     </div>
 
     <div id="media-container"></div>
@@ -38,13 +39,13 @@
     <button class="back-btn bottom-btn">⋘ Back to albums</button>
   </section>
 
-  <!-- 2. Lightbox (Full Screen Image) -->
+  <!-- Lightbox (Full Screen Image) -->
   <div id="lightbox" class="lightbox">
       <span id="closeLightbox" class="close-lightbox">&times;</span>
       <img id="lightbox-img" src="" alt="Full Screen View">
   </div>
 
-  <!-- 3. Scroll to Top Button -->
+  <!-- Scroll to Top Button -->
   <button id="scrollTopBtn" title="Go to Top">⬆</button>
 
   <script src="src/script.js"></script>
