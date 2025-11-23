@@ -3,22 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Joips Album (backup)</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Joips Albums</title>
+  <!-- Updated Path -->
+  <link rel="stylesheet" href="src/style.css" />
 </head>
 <body>
-  <header>📸Joips Albums💋</header>
+  <header>📸 Joips Albums 💋</header>
 
+  <!-- Loading Spinner -->
+  <div id="loader" class="loader"></div>
+
+  <!-- Album List View -->
   <main id="album-list"></main>
 
-  <section id="album-view" aria-label="Album view">
-    <button class="back-btn" id="backTop">⋘ Back to albums </button>
-    <h2 id="album-title"></h2>
-    <audio id="narration" controls></audio>
+  <!-- Single Album View -->
+  <section id="album-view" aria-hidden="true">
+    <div class="view-header">
+        <button class="back-btn">⋘ Back to albums</button>
+        <h2 id="album-title"></h2>
+    </div>
+    
+    <div class="audio-wrapper">
+        <audio id="narration" controls class="sticky-audio"></audio>
+    </div>
+
     <div id="media-container"></div>
-    <button class="back-btn" id="backBottom">⋘ Back to albums </button>
+    
+    <button class="back-btn bottom-btn">⋘ Back to albums</button>
   </section>
 
-  <script src="script.js"></script>
+  <!-- Updated Path -->
+  <script src="src/script.js"></script>
 </body>
 </html>
