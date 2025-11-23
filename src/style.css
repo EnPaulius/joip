@@ -23,7 +23,7 @@ header {
   background: var(--card-bg);
   border-bottom: 1px solid #333;
   z-index: 10;
-  position: sticky; /* Search bar stays visible */
+  position: sticky; /* Only the Search bar sticks */
   top: 0;
 }
 
@@ -128,14 +128,15 @@ section#album-view.visible { display: flex; }
 
 #album-title { font-size: 1.5rem; margin: 1rem 0; color: var(--accent-color); }
 
-/* Sticky Audio Player (Under Search Bar) */
+/* AUDIO PLAYER - STATIC (Does NOT scroll with page) */
 .audio-wrapper {
-    position: sticky;
-    top: 75px; /* Offset for header/search */
-    background: var(--bg-color);
+    position: static; /* Normal flow */
     width: 100%; max-width: 900px;
-    padding: 10px 0; z-index: 90;
-    border-bottom: 1px solid #333;
+    padding: 10px 0;
+    margin-bottom: 20px;
+    text-align: center;
+    background: transparent;
+    border: none;
 }
 
 #narration { width: 100%; display: block; }
@@ -144,7 +145,6 @@ section#album-view.visible { display: flex; }
   max-width: 900px; width: 100%;
   display: flex; flex-direction: column;
   gap: 2rem; align-items: center;
-  margin-top: 1rem;
 }
 
 #media-container img,
@@ -152,11 +152,9 @@ section#album-view.visible { display: flex; }
   width: 100%; height: auto;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  /* Indicate image is clickable */
   cursor: zoom-in;
 }
 
-/* Video controls don't need zoom cursor */
 #media-container video { cursor: default; }
 
 .caption {
@@ -208,21 +206,28 @@ section#album-view.visible { display: flex; }
     display: flex; align-items: center; justify-content: center;
 }
 
-/* --- 5. Scroll To Top Button --- */
+/* --- 5. Scroll To Top Button (Small & Transparent) --- */
 #scrollTopBtn {
     display: none;
     position: fixed;
-    bottom: 30px; right: 30px;
+    bottom: 20px; right: 20px;
     z-index: 99;
     border: none; outline: none;
+    
+    /* Small & Transparent */
+    width: 35px; height: 35px;
+    font-size: 18px;
     background-color: var(--accent-color);
     color: #000;
+    opacity: 0.5; /* Transparent */
+    
     cursor: pointer;
-    width: 50px; height: 50px;
     border-radius: 50%;
-    font-size: 24px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-    opacity: 0.8;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     transition: opacity 0.3s, transform 0.3s;
 }
-#scrollTopBtn:hover { opacity: 1; transform: translateY(-3px); }
+
+#scrollTopBtn:hover { 
+    opacity: 1; 
+    transform: translateY(-3px); 
+}
