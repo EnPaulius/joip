@@ -1,10 +1,10 @@
 let albums = [];
 
-// Observer to pause off-screen videos in the list view for performance
+// Observer to pause off-screen videos in the list view
 const videoObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.play().catch(() => {}); // Try to play
+            entry.target.play().catch(() => {});
         } else {
             entry.target.pause();
         }
@@ -12,7 +12,6 @@ const videoObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.25 });
 
 // 1. Load Data
-// Note: pointing to src/albums.json relative to index.html
 fetch('src/albums.json')
   .then(res => {
     if (!res.ok) throw new Error('Failed to load albums');
@@ -33,15 +32,15 @@ function createMediaElement(src, type = 'image', alt = '') {
   if (type === 'video') {
     const video = document.createElement('video');
     video.src = src;
-    video.muted = true; // Required for autoplay
+    video.muted = true;
     video.loop = true;
-    video.playsInline = true; // Required for iOS
+    video.playsInline = true;
     return video;
   } else {
     const img = document.createElement('img');
     img.src = src;
     img.alt = alt || 'Media';
-    img.loading = "lazy"; // PERFORMANCE: Lazy load images
+    img.loading = "lazy";
     return img;
   }
 }
@@ -49,26 +48,25 @@ function createMediaElement(src, type = 'image', alt = '') {
 // 3. Render Album List
 function renderAlbumCards() {
   const list = document.getElementById('album-list');
-  // Use Fragment for performance (1 reflow instead of many)
   const fragment = document.createDocumentFragment();
 
   albums.forEach((album, index) => {
     const card = document.createElement('div');
     card.className = 'album-card';
+    // Add title data-attribute for easy searching
+    card.setAttribute('data-title', album.title.toLowerCase());
     card.onclick = () => openAlbum(index);
 
     const thumbContainer = document.createElement('div');
     thumbContainer.className = 'thumbnail-container';
 
-    // Determine thumbnail source
     const thumbSrc = album.thumbnail || (album.items.length ? album.items[0].src : '');
     const isVideo = thumbSrc.endsWith('.mp4');
     
     const mediaEl = createMediaElement(thumbSrc, isVideo ? 'video' : 'image', album.title);
     
-    // Optimization: Only observe videos in list view
     if (isVideo) {
-        mediaEl.autoplay = false; // Let observer handle it
+        mediaEl.autoplay = false;
         videoObserver.observe(mediaEl);
     }
 
@@ -85,32 +83,47 @@ function renderAlbumCards() {
   list.appendChild(fragment);
 }
 
-// 4. Open Album View
+// 4. Search Feature
+const searchBar = document.getElementById('searchBar');
+searchBar.addEventListener('keyup', (e) => {
+    const term = e.target.value.toLowerCase();
+    const cards = document.querySelectorAll('.album-card');
+
+    cards.forEach(card => {
+        const title = card.getAttribute('data-title');
+        if (title.includes(term)) {
+            card.style.display = 'flex';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+});
+
+// 5. Open Album View
 function openAlbum(index) {
   const currentAlbum = albums[index];
   const listSection = document.getElementById('album-list');
   const viewSection = document.getElementById('album-view');
+  const searchHeader = document.querySelector('header');
   
-  // Toggle Visibility
+  // Hide List & Search, Show View
   listSection.style.display = 'none';
+  searchHeader.style.display = 'none'; // Hide search bar inside album
   viewSection.classList.add('visible');
-  window.scrollTo(0,0); // Reset scroll
+  
+  window.scrollTo(0,0);
 
-  // Set Title
   document.getElementById('album-title').textContent = currentAlbum.title;
 
-  // Set Audio
   const narration = document.getElementById('narration');
   if (currentAlbum.narration) {
       narration.src = currentAlbum.narration;
       narration.style.display = 'block';
-      // narration.play(); // Optional: Auto-play audio
   } else {
       narration.style.display = 'none';
       narration.pause();
   }
 
-  // Render Content
   const container = document.getElementById('media-container');
   container.innerHTML = '';
   const fragment = document.createDocumentFragment();
@@ -120,8 +133,11 @@ function openAlbum(index) {
     const el = createMediaElement(item.src, type, currentAlbum.title);
     
     if (type === 'video') {
-      el.controls = true; // Controls needed for main view
+      el.controls = true;
       el.autoplay = true;
+    } else {
+        // LIGHTBOX TRIGGER FOR IMAGES
+        el.onclick = () => openLightbox(item.src);
     }
 
     fragment.appendChild(el);
@@ -137,21 +153,57 @@ function openAlbum(index) {
   container.appendChild(fragment);
 }
 
-// 5. Back Navigation
+// 6. Lightbox Logic
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const closeLightboxBtn = document.getElementById('closeLightbox');
+
+function openLightbox(src) {
+    lightboxImg.src = src;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent background scroll
+}
+
+function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = 'auto';
+    setTimeout(() => { lightboxImg.src = ''; }, 200); // Clear after anim
+}
+
+// Close on X button or Background click
+closeLightboxBtn.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+});
+
+// 7. Back Navigation
 function goBack() {
   document.getElementById('album-list').style.display = 'grid';
+  document.querySelector('header').style.display = 'block'; // Show search again
   document.getElementById('album-view').classList.remove('visible');
 
-  // Stop Audio
   const narration = document.getElementById('narration');
   narration.pause();
   narration.src = '';
   
-  // Clear media to save memory
   document.getElementById('media-container').innerHTML = '';
 }
 
-// Attach Listeners to all back buttons
 document.querySelectorAll('.back-btn').forEach(btn => {
     btn.addEventListener('click', goBack);
 });
+
+// 8. Scroll to Top Button
+const scrollBtn = document.getElementById("scrollTopBtn");
+
+window.onscroll = function() {
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        scrollBtn.style.display = "block";
+    } else {
+        scrollBtn.style.display = "none";
+    }
+};
+
+scrollBtn.onclick = function() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+};
