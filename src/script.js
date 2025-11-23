@@ -53,7 +53,6 @@ function renderAlbumCards() {
   albums.forEach((album, index) => {
     const card = document.createElement('div');
     card.className = 'album-card';
-    // Add title data-attribute for easy searching
     card.setAttribute('data-title', album.title.toLowerCase());
     card.onclick = () => openAlbum(index);
 
@@ -106,9 +105,8 @@ function openAlbum(index) {
   const viewSection = document.getElementById('album-view');
   const searchHeader = document.querySelector('header');
   
-  // Hide List & Search, Show View
   listSection.style.display = 'none';
-  searchHeader.style.display = 'none'; // Hide search bar inside album
+  searchHeader.style.display = 'none';
   viewSection.classList.add('visible');
   
   window.scrollTo(0,0);
@@ -136,7 +134,6 @@ function openAlbum(index) {
       el.controls = true;
       el.autoplay = true;
     } else {
-        // LIGHTBOX TRIGGER FOR IMAGES
         el.onclick = () => openLightbox(item.src);
     }
 
@@ -161,16 +158,15 @@ const closeLightboxBtn = document.getElementById('closeLightbox');
 function openLightbox(src) {
     lightboxImg.src = src;
     lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Prevent background scroll
+    document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox() {
     lightbox.classList.remove('active');
     document.body.style.overflow = 'auto';
-    setTimeout(() => { lightboxImg.src = ''; }, 200); // Clear after anim
+    setTimeout(() => { lightboxImg.src = ''; }, 200);
 }
 
-// Close on X button or Background click
 closeLightboxBtn.addEventListener('click', closeLightbox);
 lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) closeLightbox();
@@ -179,7 +175,7 @@ lightbox.addEventListener('click', (e) => {
 // 7. Back Navigation
 function goBack() {
   document.getElementById('album-list').style.display = 'grid';
-  document.querySelector('header').style.display = 'block'; // Show search again
+  document.querySelector('header').style.display = 'block';
   document.getElementById('album-view').classList.remove('visible');
 
   const narration = document.getElementById('narration');
