@@ -16,14 +16,44 @@ body {
   min-height: 100vh;
 }
 
+/* --- Header & Search --- */
 header {
-  padding: 1rem;
+  padding: 1rem 0.5rem;
   text-align: center;
-  font-size: 1.5rem;
-  font-weight: bold;
   background: var(--card-bg);
   border-bottom: 1px solid #333;
   z-index: 10;
+  position: sticky; /* Search bar stays visible */
+  top: 0;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.search-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#searchBar {
+  width: 90%;
+  max-width: 500px;
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: 1px solid #444;
+  background: #121212;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+#searchBar:focus {
+  border-color: var(--accent-color);
 }
 
 /* --- Loader --- */
@@ -31,8 +61,7 @@ header {
   border: 5px solid #333;
   border-top: 5px solid var(--accent-color);
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 40px; height: 40px;
   animation: spin 1s linear infinite;
   margin: 50px auto;
 }
@@ -41,7 +70,6 @@ header {
 /* --- Album List --- */
 main#album-list {
   display: grid;
-  /* Better responsive resizing */
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
   padding: 1.5rem;
@@ -59,7 +87,7 @@ main#album-list {
   transition: transform 0.2s, box-shadow 0.2s;
   display: flex;
   flex-direction: column;
-  aspect-ratio: 1 / 1; /* Keeps cards square */
+  aspect-ratio: 1 / 1;
 }
 
 .album-card:hover {
@@ -68,118 +96,133 @@ main#album-list {
 }
 
 .thumbnail-container {
-  width: 100%;
-  height: 75%;
-  overflow: hidden;
-  background: #000;
+  width: 100%; height: 75%;
+  overflow: hidden; background: #000;
 }
 
 .thumbnail-container img,
 .thumbnail-container video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 100%; height: 100%; object-fit: cover;
 }
 
 .album-card h3 {
-  height: 25%;
-  margin: 0;
-  padding: 0.5rem 1rem;
+  height: 25%; margin: 0; padding: 0.5rem 1rem;
   font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  word-break: break-word;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; word-break: break-word;
 }
 
 /* --- Album View --- */
 section#album-view {
-  display: none; /* Hidden by default */
-  flex-direction: column;
-  align-items: center;
+  display: none;
+  flex-direction: column; align-items: center;
   padding: 1rem;
   background: var(--bg-color);
-  min-height: 100vh;
-  width: 100%;
+  min-height: 100vh; width: 100%;
   box-sizing: border-box;
 }
 
-section#album-view.visible {
-  display: flex;
-}
+section#album-view.visible { display: flex; }
 
-.view-header {
-    width: 100%;
-    max-width: 900px;
-    text-align: center;
-}
+.view-header { width: 100%; max-width: 900px; text-align: center; }
 
-#album-title {
-  font-size: 1.5rem;
-  margin: 1rem 0;
-  color: var(--accent-color);
-}
+#album-title { font-size: 1.5rem; margin: 1rem 0; color: var(--accent-color); }
 
-/* Sticky Audio Player */
+/* Sticky Audio Player (Under Search Bar) */
 .audio-wrapper {
     position: sticky;
-    top: 0;
+    top: 75px; /* Offset for header/search */
     background: var(--bg-color);
-    width: 100%;
-    max-width: 900px;
-    padding: 10px 0;
-    z-index: 100;
+    width: 100%; max-width: 900px;
+    padding: 10px 0; z-index: 90;
     border-bottom: 1px solid #333;
 }
 
-#narration {
-  width: 100%;
-  display: block;
-}
+#narration { width: 100%; display: block; }
 
 #media-container {
-  max-width: 900px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  align-items: center;
+  max-width: 900px; width: 100%;
+  display: flex; flex-direction: column;
+  gap: 2rem; align-items: center;
   margin-top: 1rem;
 }
 
 #media-container img,
 #media-container video {
-  width: 100%;
-  height: auto;
+  width: 100%; height: auto;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  /* Indicate image is clickable */
+  cursor: zoom-in;
 }
 
+/* Video controls don't need zoom cursor */
+#media-container video { cursor: default; }
+
 .caption {
-  max-width: 800px;
-  width: 90%;
-  text-align: center;
-  font-size: 1.1rem;
-  color: #ccc;
-  background: #222;
-  padding: 15px;
-  border-radius: 8px;
+  max-width: 800px; width: 90%;
+  text-align: center; font-size: 1.1rem;
+  color: #ccc; background: #222;
+  padding: 15px; border-radius: 8px;
   border-left: 4px solid var(--accent-color);
   line-height: 1.5;
 }
 
 .back-btn {
-  background: #333;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.3s;
+  background: #333; color: #fff;
+  border: none; padding: 10px 20px;
+  border-radius: 20px; cursor: pointer;
+  font-size: 1rem; transition: background 0.3s;
   display: inline-block;
 }
-
 .back-btn:hover { background: var(--accent-color); color: #000; }
 .bottom-btn { margin-top: 3rem; margin-bottom: 2rem; width: 100%; max-width: 900px; }
+
+/* --- 4. Lightbox --- */
+.lightbox {
+    display: none;
+    position: fixed; z-index: 2000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.95);
+    align-items: center; justify-content: center;
+    backdrop-filter: blur(5px);
+}
+.lightbox.active { display: flex; }
+
+.lightbox img {
+    max-width: 95%; max-height: 95%;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    animation: zoomIn 0.2s ease;
+}
+@keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.close-lightbox {
+    position: absolute; top: 20px; right: 30px;
+    color: #fff; font-size: 40px; font-weight: bold;
+    cursor: pointer; user-select: none;
+    background: rgba(0,0,0,0.5);
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+}
+
+/* --- 5. Scroll To Top Button --- */
+#scrollTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 30px; right: 30px;
+    z-index: 99;
+    border: none; outline: none;
+    background-color: var(--accent-color);
+    color: #000;
+    cursor: pointer;
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    opacity: 0.8;
+    transition: opacity 0.3s, transform 0.3s;
+}
+#scrollTopBtn:hover { opacity: 1; transform: translateY(-3px); }
