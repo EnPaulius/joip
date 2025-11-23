@@ -4,11 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Joips Albums</title>
-  <!-- Updated Path -->
   <link rel="stylesheet" href="src/style.css" />
 </head>
 <body>
-  <header>📸 Joips Albums 💋</header>
+  
+  <!-- 1. Header & Search -->
+  <header>
+    <div class="title">📸 Joips Albums 💋</div>
+    <div class="search-wrapper">
+        <input type="text" id="searchBar" placeholder="🔍 Search albums..." autocomplete="off">
+    </div>
+  </header>
 
   <!-- Loading Spinner -->
   <div id="loader" class="loader"></div>
@@ -32,7 +38,15 @@
     <button class="back-btn bottom-btn">⋘ Back to albums</button>
   </section>
 
-  <!-- Updated Path -->
+  <!-- 2. Lightbox (Full Screen Image) -->
+  <div id="lightbox" class="lightbox">
+      <span id="closeLightbox" class="close-lightbox">&times;</span>
+      <img id="lightbox-img" src="" alt="Full Screen View">
+  </div>
+
+  <!-- 3. Scroll to Top Button -->
+  <button id="scrollTopBtn" title="Go to Top">⬆</button>
+
   <script src="src/script.js"></script>
 </body>
 </html>
