@@ -1,284 +1,156 @@
-/* -------------------------------------- */
-/* 1. Global Variables & Themes */
-/* -------------------------------------- */
-:root {
-    /* --- DEFAULT THEME (Abyss) --- */
-    --color-bg-main: #121212;
-    --color-bg-card: #1c1c1c;
-    --color-bg-nav: #1c1c1c;
-    --color-text-main: #e0e0e0;
-    --color-text-muted: #aaaaaa;
-    --color-accent: #f0c05a;       /* Gold */
-    --color-checkbox: #32cd32;     /* Green */
-    --color-highlight: rgba(50, 205, 50, 0.3);
-    --color-border: #333333;
-    --color-btn-map: #637b98;
-    --color-hover-bg: rgba(255,255,255,0.05);
-    --color-nav-link: #252525;
-    --color-nav-border: transparent;
-    --nav-width: 220px;
-    --font-main: 'Inter', sans-serif;
-}
-
-/* --- THEME: STEAM GUIDE --- */
-body.theme-steam {
-    --color-bg-main: #000000;
-    --color-bg-card: #000000;
-    --color-bg-nav: #1b2838;
-    --color-text-main: #acb2b8;
-    --color-text-muted: #70757a;
-    --color-accent: #66c0f4;       /* Blue */
-    --color-checkbox: #66c0f4;     /* Blue */
-    --color-highlight: rgba(102, 192, 244, 0.3);
-    --color-border: #3c434d;
-    --color-hover-bg: #16202d;
-    --color-nav-link: #1b2838;
-    --color-nav-border: #58636e;
-    --font-main: Arial, Helvetica, sans-serif;
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
+/* General body and layout */
 body {
-    font-family: var(--font-main);
-    background-color: var(--color-bg-main);
-    color: var(--color-text-main);
-    line-height: 1.6;
-    transition: background 0.3s, color 0.3s;
+  margin: 0;
+  font-family: sans-serif;
+  background: #111;
+  color: #eee;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-/* -------------------------------------- */
-/* 2. Layout */
-/* -------------------------------------- */
-#app-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 40px 260px 100px 20px;
+/* Header */
+header {
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: #222;
 }
 
-.route-part-section { margin-bottom: 50px; scroll-margin-top: 20px; }
-
-body.theme-steam .part-title {
-    text-align: left;
-    border-bottom: 1px solid #363c44;
-    padding-bottom: 10px;
-    color: #66c0f4;
-    text-transform: none;
-    font-family: "Motiva Sans", Sans-serif;
-    font-weight: 300;
+/* Album list grid */
+main#album-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(288px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  flex-grow: 1;
+  background: #111;
 }
 
-body:not(.theme-steam) h1.part-title {
-    color: var(--color-accent);
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    border-bottom: 1px solid var(--color-border);
-    padding-bottom: 15px;
+/* Album card */
+.album-card {
+  width: 288px;
+  height: 288px;
+  background: #222;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: pointer;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
-/* -------------------------------------- */
-/* 3. Navigation */
-/* -------------------------------------- */
-#navigation {
-    position: fixed; right: 30px; top: 50%; transform: translateY(-50%);
-    width: var(--nav-width);
-    background-color: var(--color-bg-nav);
-    padding: 20px; border-radius: 8px;
-    border: 1px solid var(--color-border);
-    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-    z-index: 1000;
-    display: flex; flex-direction: column; gap: 10px;
+/* Thumbnail container inside album card */
+.album-card .thumbnail-container {
+  flex: 1 1 70%;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
 }
 
-#navigation h3 {
-    text-align: center; color: var(--color-text-main);
-    border-bottom: 1px solid var(--color-border);
-    padding-bottom: 10px; margin-bottom: 5px;
+/* Thumbnail images and videos */
+.album-card .thumbnail-container img,
+.album-card .thumbnail-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px 8px 0 0;
 }
 
-/* TOP ICONS */
-.top-icons {
-    display: flex; justify-content: space-between; 
-    gap: 5px; margin-bottom: 5px;
+/* Album title */
+.album-card h3 {
+  flex: 0 1 30%;
+  margin: 0.5rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-wrap: break-word;
 }
 
-.icon-btn {
-    flex: 1;
-    background: transparent;
-    border: 1px solid transparent;
-    color: var(--color-text-main);
-    height: 36px; border-radius: 6px;
-    font-size: 1.3rem; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s;
-}
-.icon-btn:hover {
-    background: var(--color-hover-bg);
-    border-color: var(--color-accent);
-    transform: scale(1.1);
+/* Album view section */
+section#album-view {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background: #111;
+  min-height: 100vh;
 }
 
-/* LINKS */
-#dynamic-links { display: flex; flex-direction: column; gap: 5px; }
-
-.nav-link {
-    display: block; padding: 8px 12px;
-    background-color: var(--color-nav-link);
-    color: var(--color-text-muted);
-    text-decoration: none; border-radius: 4px;
-    text-align: center; font-size: 0.9rem;
-    border: 1px solid var(--color-nav-border);
-}
-.nav-link:hover { background-color: var(--color-border); color: var(--color-text-main); }
-.nav-link.active-nav { background-color: var(--color-accent); color: var(--color-bg-main); font-weight: bold; }
-
-/* ACTION BUTTONS */
-.nav-actions { display: flex; flex-direction: column; gap: 5px; }
-
-.resume-btn, .reset-btn {
-    width: 100%; padding: 8px; border-radius: 4px;
-    cursor: pointer; font-weight: bold; text-transform: uppercase;
-    border: none; font-size: 0.85rem;
-}
-.resume-btn { background-color: #32cd32; color: #121212; }
-.reset-btn { background-color: #d9534f; color: white; }
-
-/* PROGRESS */
-.progress-container {
-    width: 100%; height: 20px; background: rgba(0,0,0,0.3);
-    border-radius: 4px; position: relative; border: 1px solid var(--color-border);
-}
-.progress-fill { height: 100%; width: 0%; transition: width 0.4s; background: var(--color-checkbox); }
-#progressText {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.75rem; color: #fff; text-shadow: 0 1px 2px #000;
+/* Show album view when visible */
+section#album-view.visible {
+  display: flex;
 }
 
-/* -------------------------------------- */
-/* 4. Content Cards & Logic */
-/* -------------------------------------- */
-.leg-section {
-    background-color: var(--color-bg-card);
-    padding: 20px; border-radius: 4px;
-    margin-bottom: 20px; border: 1px solid var(--color-border);
+/* Album title in album view */
+#album-title {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  max-width: 900px;
+  word-break: break-word;
 }
 
-.leg-section h3 {
-    color: var(--color-accent); margin-bottom: 15px; font-size: 1.3rem;
-    cursor: pointer; position: relative; padding-right: 30px; user-select: none;
-}
-.leg-section h3::after {
-    content: '▼'; position: absolute; right: 0; top: 50%;
-    transform: translateY(-50%); font-size: 0.8em; opacity: 0.5;
-    transition: transform 0.3s ease;
+/* Narration audio player */
+#narration {
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 1rem;
+  display: block;
 }
 
-/* COLLAPSED LOGIC (Applies to Desktop AND Mobile now) */
-.leg-section.collapsed .checklist { display: none; }
-.leg-section.collapsed h3::after { transform: translateY(-50%) rotate(-90deg); }
-
-.checklist-item {
-    display: flex; padding: 8px 0;
-    border-bottom: 1px dashed var(--color-border);
-    transition: background 0.3s;
-}
-.checklist-item:hover { background-color: var(--color-hover-bg); }
-
-.row-highlight { animation: highlightPulse 1.5s ease-out; }
-@keyframes highlightPulse {
-    0% { background-color: var(--color-highlight); }
-    100% { background-color: transparent; }
+/* Media container for album images/videos */
+#media-container {
+  max-width: 950px;
+  width: 100%;
+  display: flex;
+  flex-direction: column; /* stack items vertically */
+  gap: 1.5rem;            /* spacing between items */
+  align-items: center;    /* center items horizontally */
+  margin: 0 auto;         /* center container */
 }
 
-.checkbox {
-    width: 18px; height: 18px; min-width: 18px;
-    margin-right: 12px; margin-top: 4px;
-    cursor: pointer; accent-color: var(--color-checkbox);
+/* Images and videos inside media container */
+#media-container img,
+#media-container video {
+  width: 100%;            /* fill container width */
+  max-width: 950px;       /* don't exceed max width */
+  height: auto;           /* keep aspect ratio */
+  object-fit: contain;    /* fit entire media inside */
+  border-radius: 8px;
+  display: block;
 }
 
-.step-description { flex: 1; }
-.checklist-item.completed .step-description {
-    color: #555 !important; text-decoration: line-through !important; opacity: 0.6;
+
+/* Caption below media */
+.caption {
+  max-width: 950px;
+  width: 100%;
+  text-align: center; 
+  font-style: normal; /*italic*/
+  color: #ccc;
+  margin-bottom: 1rem;
 }
 
-.image-gallery img { max-width: 100%; border-radius: 4px; margin-top: 10px; }
-.hr-divider { height: 1px; background: var(--color-border); margin: 20px 0; }
-
-/* -------------------------------------- */
-/* 5. MOBILE NAVIGATION */
-/* -------------------------------------- */
-@media (max-width: 1280px) {
-    #app-container { padding: 170px 15px 40px 15px; }
-    .route-part-section { scroll-margin-top: 180px; }
-
-    #navigation {
-        position: fixed; top: 0; left: 0; right: 0; bottom: auto;
-        width: 100%; height: auto; transform: none;
-        display: flex; flex-direction: column;
-        padding: 8px; border-radius: 0; border: none;
-        border-bottom: 2px solid var(--color-accent);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-        z-index: 5000;
-    }
-
-    #navigation h3 { display: none; }
-
-    .top-icons { margin-bottom: 5px; }
-    .icon-btn { height: 32px; font-size: 1.2rem; }
-
-    #dynamic-links {
-        display: grid; grid-template-columns: repeat(3, 1fr);
-        gap: 5px; width: 100%;
-    }
-    .nav-link {
-        padding: 6px 2px; font-size: 0.75rem;
-        white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;
-    }
-
-    .nav-actions {
-        flex-direction: row; justify-content: space-between;
-        margin-top: 5px; gap: 5px;
-    }
-    .resume-btn, .reset-btn { flex: 1; margin: 0; padding: 6px; font-size: 0.75rem; }
-
-    .progress-container { margin-top: 5px; height: 12px; }
-    #progressText { font-size: 0.65rem; line-height: 12px; }
+/* Back to albums buttons */
+button.back-btn {
+  background: #333;
+  color: #eee;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+  border-radius: 6px;
+  cursor: pointer;
+  max-width: 900px;
+  width: 100%;
+  font-size: 1rem;
+  transition: background 0.3s;
 }
 
-/* -------------------------------------- */
-/* 6. MAP MODAL */
-/* -------------------------------------- */
-.map-modal {
-    display: none; position: fixed; top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background-color: #050505; z-index: 9999; overflow: hidden;
-}
-.map-viewport {
-    width: 100%; height: 100%; overflow: hidden;
-    display: flex; align-items: center; justify-content: center;
-    cursor: grab; touch-action: none;
-}
-.map-viewport:active { cursor: grabbing; }
-#mapImage {
-    transform-origin: center center; transition: transform 0.1s linear;
-    max-width: none; pointer-events: none;
-}
-.close-map-btn {
-    position: absolute; top: 15px; left: 15px;
-    background: rgba(0,0,0,0.8); color: #fff;
-    border: 1px solid #555; padding: 8px 16px;
-    border-radius: 20px; z-index: 10000;
-}
-.map-controls {
-    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
-    background: rgba(20,20,20,0.9); padding: 8px 15px; border-radius: 30px;
-    display: flex; gap: 10px; align-items: center;
-    border: 1px solid #555; z-index: 10000;
-}
-.map-controls button {
-    background: #333; color: #fff; border: none;
-    width: 28px; height: 28px; border-radius: 50%;
+button.back-btn:hover {
+  background: #555;
 }
