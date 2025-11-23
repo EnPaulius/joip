@@ -133,9 +133,8 @@ function openAlbum(index) {
     if (type === 'video') {
       el.controls = true;
       el.autoplay = true;
-    } else {
-        el.onclick = () => openLightbox(item.src);
     }
+    // Removed Lightbox Click Listener here
 
     fragment.appendChild(el);
 
@@ -150,29 +149,7 @@ function openAlbum(index) {
   container.appendChild(fragment);
 }
 
-// 6. Lightbox Logic
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightbox-img');
-const closeLightboxBtn = document.getElementById('closeLightbox');
-
-function openLightbox(src) {
-    lightboxImg.src = src;
-    lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeLightbox() {
-    lightbox.classList.remove('active');
-    document.body.style.overflow = 'auto';
-    setTimeout(() => { lightboxImg.src = ''; }, 200);
-}
-
-closeLightboxBtn.addEventListener('click', closeLightbox);
-lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) closeLightbox();
-});
-
-// 7. Back Navigation
+// 6. Back Navigation
 function goBack() {
   document.getElementById('album-list').style.display = 'grid';
   document.querySelector('header').style.display = 'block';
@@ -189,7 +166,7 @@ document.querySelectorAll('.back-btn').forEach(btn => {
     btn.addEventListener('click', goBack);
 });
 
-// 8. Scroll to Top Button
+// 7. Scroll to Top Button
 const scrollBtn = document.getElementById("scrollTopBtn");
 
 window.onscroll = function() {
