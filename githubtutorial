@@ -1,0 +1,7 @@
+git add .
+git commit -m "Added a new album"
+git push
+
+The . means "take everything that changed."
+The -m is your "memo" so you know what you did.
+This physically moves the files from your SSD to GitHub's servers.
