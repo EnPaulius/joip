@@ -1,6 +1,6 @@
 [
   {
-    "title": "Alien Abduction: Endurance Test",
+    "title": "Alien Abduction: Endurance Test (AI GENERATED)",
     "thumbnail": "https://cdn.imgchest.com/files/75ff6eda1b33.mp4",
     "narration": "https://media.soundgasm.net/sounds/b462e4755fca1134cf8295ee8442d62f550f363e.m4a",
     "items": [
@@ -9,16 +9,16 @@
         "src": "https://cdn.imgchest.com/files/75ff6eda1b33.mp4"
       },
       {
+        "type": "video",
+        "src": "https://cdn.imgchest.com/files/68da7c72fa63.mp4"
+      },
+      {
         "type": "image",
         "src": "https://cdn.imgchest.com/files/4193d2ea3fa6.jpeg"
       },
       {
         "type": "video",
         "src": "https://cdn.imgchest.com/files/a370b6910e41.mp4"
-      },
-      {
-        "type": "video",
-        "src": "https://cdn.imgchest.com/files/68da7c72fa63.mp4"
       },
       {
         "type": "image",
